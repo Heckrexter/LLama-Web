@@ -1,9 +1,12 @@
+"use client"
+
 import { FormEvent } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Form } from "react-hook-form";
 import { MessageCirclePlus } from 'lucide-react';
+import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogClose,
@@ -26,9 +29,7 @@ import {
 import { createChat } from "@/functions/createChat";
 
 export function AddChatDialog({modelList, serverDetails}: any) {
-  
-  console.log("modellist");
-  console.log(modelList);
+  const router = useRouter();
   return(
     <div>
       <Dialog>
@@ -36,7 +37,6 @@ export function AddChatDialog({modelList, serverDetails}: any) {
           <Button
           className="mr-3"
           onClick={()=>{
-            console.log("clicked");
           }}>
             Add Chat
             <MessageCirclePlus className="ml-1" />
@@ -55,9 +55,12 @@ export function AddChatDialog({modelList, serverDetails}: any) {
             onSubmit={ async (event: FormEvent<HTMLFormElement>) => {
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
-              console.log(formData.get("model"));
-              const response = await createChat(serverDetails.addr, serverDetails.token, formData.get("model") as string);
-              console.log(response);
+              await createChat(serverDetails.addr, serverDetails.token, formData.get("model") as string)
+              .then((response)=> {
+                router.push(`/chat/${response.chatId}`);
+              })
+              // redirect to the new chat page
+              
             }}
           >
             <Label htmlFor="model">Model</Label>

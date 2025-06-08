@@ -21,11 +21,9 @@ export async function createChat(addr:string, accessToken:string, model:string) 
         }];
       })
       .then((data) => {
-        console.log("data progressed2");
-        console.log(data);
         return data;
       })
-      return result.list;
+      return result;
     } catch (e) {
       console.log("error");
       console.log(e);

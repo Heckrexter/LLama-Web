@@ -57,8 +57,6 @@ export default function Page() {
         var [chatList, statusa]: any = await getChatList(resourceServer.addr, resourceServer.token);
         console.log("Server is up");
         const tempModelList = await getModelList(resourceServer.addr, resourceServer.token);
-        console.log("tempModelList");
-        console.log(tempModelList);
         setModelList(tempModelList ? tempModelList : []);
         setData(chatList ? chatList : []);
         setStatusa(statusa);
@@ -72,9 +70,6 @@ export default function Page() {
   // Function to handle chat deletion (placeholder for now)
   const handleDeleteChat = (chatId: string) => {
     console.log(`Deleting chat with ID: ${chatId}`);
-    // Future implementation: Add API call to delete chat
-    // After successful deletion, update the data state
-    // setData(prevData => prevData.filter(chat => chat.ChatId !== chatId));
   };
 
   if (loading) {
@@ -84,7 +79,6 @@ export default function Page() {
       </div>
     );
   } else if (!loading) {
-    console.log("ServerDetails: ", serverDetails.token);
     return (
       <div className="Container max-w-7xl mx-auto px-4 py-6">
         <div className="dashboard-header mb-8">
